@@ -1,0 +1,14 @@
+{% extends "app_productos/base.html" %}
+
+{% block content %}
+<p>NOMBRE DEL PRODUCTO: {{ producto.nombre_producto }}</p>
+<p>DESCRIPCION DEL PRODUCTO: {{ producto.descripcion_producto }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <p>¿Desea realmente elminar el elemento?</p>
+    {{ form.as_p }}
+    <input type="submit" value="Eliminar">
+    <button><a href="{% url 'app_productos:listar_productos' %}">Cancelar</a></button>
+</form>
+
+{% endblock content%}

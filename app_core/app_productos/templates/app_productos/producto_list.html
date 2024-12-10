@@ -1,0 +1,17 @@
+{%extends "index/index.html"%}
+
+{% block content %}
+<h1>Productos</h1>
+<button><a href="{% url 'app_productos:create_productos' %}">CREAR PRODUCTO</a></button>
+{%for producto in productos %}
+        <article style="border: solid 1px black;margin:5px;">
+            <p> {{producto.nombre_producto}} </p>
+            <p> {{producto.descripcion_producto}} </p>
+            <p> {{producto.precio_producto}} </p>
+            <p> {{producto.id}} </p>
+            <button><a href="{% url 'app_productos:update_productos' pk=producto.id %}">ACTUALIZAR</a></button>
+            <button><a href="{% url 'app_productos:delete_productos' pk=producto.id %}">ELIMINAR</a></button>
+        </article>
+{%endfor%}
+
+{% endblock content%}

@@ -1,0 +1,19 @@
+{%extends "index/index.html"%}
+
+{% block content %}
+<h1>Usuarios</h1>
+<button><a href="{% url 'app_usuarios:create_usuarios' %}">CREAR USUARIO</a></button>
+{%for usuario in usuarios %}
+        <article style="border: solid 1px black;margin:5px;">
+            <p> {{usuario.nombre}} </p>
+            <p> {{usuario.apellidos}} </p>
+            <p> {{usuario.edad}} </p>
+            <p> {{usuario.email}} </p>
+            <p> {{usuario.nombre_de_usuario}} </p>
+            <p> {{usuario.password}} </p>
+            <p> {{usuario.id}} </p>
+            <button><a href="{% url 'app_usuarios:delete_usuarios' pk=usuario.id %}">ELIMINAR</a></button>
+        </article>
+{%endfor%}
+
+{% endblock content%}

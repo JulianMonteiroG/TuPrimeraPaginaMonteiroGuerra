@@ -1,0 +1,15 @@
+{% extends "app_usuarios/base.html" %}
+
+{% block content %}
+<p>NOMBRE: {{ usuario.nombre }}</p>
+<p>APELLIDOS: {{ usuario.apellidos }}</p>
+<p>EMAIL: {{ usuario.email }}</p>
+<form method="POST">
+    {% csrf_token %}
+    <p>¿Desea realmente elminar el usuario?</p>
+    {{ form.as_p }}
+    <input type="submit" value="Eliminar">
+    <button><a href="{% url 'app_usuarios:listar_usuarios' %}">Cancelar</a></button>
+</form>
+
+{% endblock content%}
