@@ -1,9 +1,10 @@
 {% extends "app_usuarios/base.html" %}
 
+{% block title %}Eliminar Usuario{% endblock title %}
+
 {% block content %}
-<p>NOMBRE: {{ usuario.nombre }}</p>
-<p>APELLIDOS: {{ usuario.apellidos }}</p>
-<p>EMAIL: {{ usuario.email }}</p>
+<p>NOMBRE: {{ username }}</p>
+<p>EMAIL: {{ user.email }}</p>
 <form method="POST">
     {% csrf_token %}
     <p>¿Desea realmente elminar el usuario?</p>

@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página</title>
+    <title>
+        {% block title %}Inicio{% endblock title %}
+    </title>
     <style>
         /* Estilos básicos para la barra de navegación */
         nav {
@@ -35,16 +37,23 @@
         <ul>
             <li><a href="{% url 'index:index' %}">Inicio</a></li>
             <li><a href="{% url 'app_productos:listar_productos' %}">Productos</a></li>
-            <li><a href="{% url 'app_usuarios:listar_usuarios' %}">Usuarios</a></li>
+            <li><a href="{% url 'app_usuarios:login' %}">Log-In</a></li>
+            <li><a href="{% url 'index:about' %}">Acerca de Mi</a></li>
+            <li><a href="{% url 'app_usuarios:usuario_create' %}">Crear Usuario</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'app_usuarios:logout' %}">Log-Out</a></li>
+                <li><a href="{% url 'app_usuarios:usuario_list' %}">Listado de Usuarios</a></li>
+            {% endif %}
             <li><a href="/admin/">Admin</a></li>
+            
         </ul>
     </nav>
-    
-    <section id="inicio">
+    <main>
         <h1>Bienvenido a mi primera página</h1>
         {% block content %}
-        {% endblock content%}
 
-    </section>
+        {% endblock content%}
+    </main>
+
 </body>
 </html>

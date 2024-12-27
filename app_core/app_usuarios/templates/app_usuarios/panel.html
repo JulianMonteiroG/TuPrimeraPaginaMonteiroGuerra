@@ -1,0 +1,8 @@
+{% extends 'app_usuarios/base.html' %}
+
+{% block title %}Login{% endblock title %}
+{% block content %}
+<h1> Bienvenido al panel, {{ user.username }} </h1>
+<a href="{% url 'app_usuarios:usuario_create' %}">CREAR NUEVO USUARIO</a>
+
+{% endblock content%}

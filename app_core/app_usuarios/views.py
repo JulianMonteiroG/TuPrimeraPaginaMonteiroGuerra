@@ -1,29 +1,44 @@
+from django.views.generic import ListView , CreateView, UpdateView , TemplateView
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UsuarioForm
-from .models import Usuario
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from .forms import CustomUserChangeForm , CustomUserCreationForm
+from django.contrib.auth import logout
 
 # Create your views here.
-def listar_usuarios(request):
-    usuarios = Usuario.objects.all()
-    contexto = {"usuarios":usuarios}
-    return render(request,"app_usuarios/usuario_list.html",contexto)
+#Login
+class UserLoginView(LoginView):
+    template_name = "app_usuarios/login.html"
+#Vista panel
+class PanelView(LoginRequiredMixin, TemplateView):
+    template_name = "app_usuarios/panel.html"
 
-def create_usuarios(request):
-    if request.method == "POST":
-        form = UsuarioForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("app_usuarios:listar_usuarios")
-    else:
-        form = UsuarioForm()
-        contexto = {"form":form}
-    return render(request,"app_usuarios/usuario_create.html",contexto)
+#listar los usuarios
+class UserListView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = "app_usuarios/usuario_list.html"
+    context_object_name = "users"
 
-def delete_usuarios(request, pk):
-    usuario = get_object_or_404(Usuario,pk=pk)
-    if request.method == "POST":
-        usuario.delete()
-        return redirect("app_usuarios:listar_usuarios")
-    contexto = {"usuario":usuario}
-    return render(request, "app_usuarios/usuario_delete.html", contexto)
+#crear usuario
+class UserCreateView(CreateView):
+    model = User
+    form_class = CustomUserCreationForm
+    template_name = "app_usuarios/usuario_create.html"
+    success_url = reverse_lazy("app_usuarios:usuario_list")
+
+#Cambios en el usuario
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = CustomUserChangeForm
+    template_name = "app_usuarios/usuario_edit.html"
+    success_url = reverse_lazy("app_usuarios:usuario_list")
+
+#definicion para el logout
+def logout_view(request):
+    logout(request)
+    return redirect('index:index')  # Cambia 'index:index' por la URL a la que quieres redirigir
+
+
 

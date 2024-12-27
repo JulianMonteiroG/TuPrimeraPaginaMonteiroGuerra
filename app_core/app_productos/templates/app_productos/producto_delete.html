@@ -1,8 +1,11 @@
 {% extends "app_productos/base.html" %}
 
+{% block title %}Eliminar Producto{% endblock title %}
+
 {% block content %}
 <p>NOMBRE DEL PRODUCTO: {{ producto.nombre_producto }}</p>
 <p>DESCRIPCION DEL PRODUCTO: {{ producto.descripcion_producto }}</p>
+<p>PRECIO:$ {{ producto.precio_producto }}</p>
 <form method="POST">
     {% csrf_token %}
     <p>¿Desea realmente elminar el elemento?</p>

@@ -1,13 +1,16 @@
 {% extends "app_usuarios/base.html" %}
 
-{% block content %}
+{% block title %}Crear Usuario{% endblock title %}
 
+{% block content %}
+<h1>CREAR USUARIO</h1>
 <form method="POST">
+    {{ form.none_field_errors }}
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form.as_div }}
     <input type="submit" value="Guardar">
     <input type="reset" value="Limpiar">
-    <button><a href="{% url 'app_usuarios:listar_usuarios' %}">CANCELAR</a></button>
+    <button><a href="{% url 'app_usuarios:panel' %}">CANCELAR</a></button>
 </form>
 
 {% endblock content%}

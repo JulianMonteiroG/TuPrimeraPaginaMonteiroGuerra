@@ -3,25 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>
+        {% block title %} App Usuarios {% endblock title %}
+    </title>
+    <style>
+        /* Estilos básicos para la barra de navegación */
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <head>
-
-    </head>
-    
     <nav>
-
+        <ul>
+            <li><a href="{% url 'index:index' %}">Inicio</a></li>
+            <li><a href="{% url 'app_usuarios:panel' %}">Panel</a></li>
+            <li><a href="{% url 'app_usuarios:usuario_list' %}">Listado de Usuarios</a></li>
+            </ul>
     </nav>
-    
-    <aside>
-
-    </aside>
-    
     <main>
-        <h1>USUARIOS</h1>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block content %}
-        
+        {% comment %} Aqui va a ir todo el contendio cuando haga un extends de la plantilla base.html {% endcomment %}
         {% endblock content %}
     </main>
 
